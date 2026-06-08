@@ -63,10 +63,29 @@ color:#ffd700;
 }
 
 .hero{
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
+  position:relative;
+}
+  .hero::before{
+    content:"CINE";
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    font-size:180px;
+    letter-spacing:20px;
+    font-weight:bold;
+
+    color:#f6c56f;
+
+    opacity:0.03;
+
+    pointer-events:none;
+}
+
+}
 
 height:85vh;
 padding:30px;

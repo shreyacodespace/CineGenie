@@ -11,10 +11,22 @@ min-height:100vh;
 color:white;
 
 background:
-radial-gradient(circle at 20% 20%, rgba(255,215,0,0.12), transparent 35%),
-radial-gradient(circle at 80% 30%, rgba(255,120,80,0.10), transparent 40%),
-radial-gradient(circle at 50% 80%, rgba(120,80,255,0.08), transparent 40%),
-linear-gradient(135deg,#090909,#141414,#1a1224);
+
+   
+    linear-gradient(
+        rgba(5,5,5,0.82),
+        rgba(5,5,5,0.88)
+    ),
+    url("hero-bg.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    overflow-x:hidden;
+}
+
 
 overflow-x:hidden;
 
@@ -32,7 +44,13 @@ color:#f6c56f;
 font-size:2rem;
 font-weight:700;
 }
+.logo{
+    color:#f6c56f;
 
+    text-shadow:
+    0 0 15px rgba(246,197,111,0.6),
+    0 0 35px rgba(246,197,111,0.3);
+}
 .logo{
     font-family:'Cinzel', serif;
     font-size:2.2rem;
@@ -95,18 +113,23 @@ pointer-events:none;
 max-width:850px;
 text-align:center;
 
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
 
-border:1px solid rgba(255,255,255,0.1);
+    background:rgba(15,15,15,0.35);
+    backdrop-filter:blur(12px);
 
-border-radius:35px;
+    border:1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.45);
+
+    border-radius:35px;
+
 padding:60px;
 
 position:relative;
 z-index:2;
 
-box-shadow:0 0 50px rgba(246,197,111,0.15);
+
 
 }
 

@@ -6,7 +6,7 @@ font-family:'Segoe UI',sans-serif;
 }
 
 body{
-  border:10px solid red;
+  
 min-height:100vh;
 color:white;
 
@@ -33,6 +33,15 @@ font-size:2rem;
 font-weight:700;
 }
 
+.logo{
+    font-family:'Cinzel', serif;
+    font-size:2.2rem;
+    letter-spacing:2px;
+    color:#f6c56f;
+    text-shadow:0 0 15px rgba(246,197,111,0.4);
+}
+
+
 .links a{
 color:white;
 text-decoration:none;
@@ -40,8 +49,20 @@ margin-left:30px;
 transition:0.3s;
 }
 
+.links a{
+    color:white;
+    text-decoration:none;
+    margin-left:30px;
+    transition:0.3s;
+    padding:10px 18px;
+    border-radius:30px;
+}
+
 .links a:hover{
-color:#f6c56f;
+    color:#0d0d0d;
+    background:#f6c56f;
+    box-shadow:0 0 15px rgba(246,197,111,0.4);
+
 }
 
 .hero{
@@ -54,17 +75,17 @@ position:relative;
 }
 
 .hero::before{
-content:"CINE";
+content:"CINEGENIE";
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 
-font-size:180px;
+font-size:120px;
 font-weight:900;
-letter-spacing:25px;
+letter-spacing:8px;
 
-color:rgba(255,215,0,0.05);
+color:rgba(246,197,111,0.07);
 
 pointer-events:none;
 

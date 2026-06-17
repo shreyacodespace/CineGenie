@@ -2,79 +2,43 @@ const btn = document.getElementById("generateBtn");
 const storyInput = document.getElementById("storyInput");
 const outputBox = document.getElementById("outputBox");
 
-const API_KEY = "PASTE_YOUR_GEMINI_API_KEY_HERE";
-
-btn.addEventListener("click", async () => {
+btn.addEventListener("click", () => {
 
     const story = storyInput.value.trim();
 
     if (!story) {
-        outputBox.innerHTML = "Please enter a story first.";
+        outputBox.innerHTML =
+        "⚠️ Please enter a story idea first.";
         return;
     }
 
-    outputBox.innerHTML = "🎬 CineGenie is analyzing your story...";
+    outputBox.innerHTML = `
+    <h2>🎬 CineGenie Analysis</h2>
 
-    try {
+    <h3>🎭 Genre</h3>
+    <p>Sci-Fi Adventure</p>
 
-        const prompt = `
-You are CineGenie.
+    <h3>🎨 Color Palette</h3>
+    <p>Deep Blue, Purple, Black</p>
 
-Analyze the following story and provide:
+    <h3>💡 Lighting Style</h3>
+    <p>Low-key cinematic lighting with neon highlights.</p>
 
-1. Genre
-2. Mood
-3. Color Palette
-4. Lighting Style
-5. Camera Movements
-6. Shot Suggestions
-7. Music Suggestions
-8. Director Style Inspiration
-9. Storyboard Outline
+    <h3>🎥 Camera Style</h3>
+    <p>Slow tracking shots, aerial establishing shots and close emotional frames.</p>
 
-Story:
-${story}
-`;
+    <h3>🎼 Music Direction</h3>
+    <p>Hans Zimmer inspired atmospheric soundtrack.</p>
 
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            parts: [
-                                {
-                                    text: prompt
-                                }
-                            ]
-                        }
-                    ]
-                })
-            }
-        );
+    <h3>🎬 Director Inspiration</h3>
+    <p>Christopher Nolan + Denis Villeneuve.</p>
 
-        const data = await response.json();
-
-        const result =
-            data.candidates?.[0]?.content?.parts?.[0]?.text ||
-            "No response received.";
-
-        outputBox.innerHTML = `
-        <div style="white-space: pre-wrap;">
-        ${result}
-        </div>
-        `;
-
-    } catch (error) {
-
-        outputBox.innerHTML =
-            "❌ Error connecting to Gemini API.";
-
-        console.error(error);
-    }
-
+    <h3>📖 Storyboard Suggestion</h3>
+    <p>
+    Scene 1: Introduce the protagonist.<br>
+    Scene 2: Present the conflict.<br>
+    Scene 3: Build tension.<br>
+    Scene 4: Climax and resolution.
+    </p>
+    `;
 });

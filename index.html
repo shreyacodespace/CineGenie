@@ -1,160 +1,243 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CineGenie</title>
-    <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<title>CineGenie | AI Cinematography Assistant</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-    <body>
-        <nav>
-    <h2 class="logo">CineGenie</h2>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+    <h2 class="logo">🎬 CineGenie</h2>
+
     <div class="links">
-    <a href="#home">Home</a>
-<a href="#features">Features</a>
-<a href="#vision">Vision</a>
-<a href="#founder">Founder</a>
-</div>
+        <a href="#home">Home</a>
+        <a href="#workspace">Workspace</a>
+        <a href="#features">Features</a>
+        <a href="#vision">Vision</a>
+        <a href="#founder">Founder</a>
+    </div>
+</nav>
 
-</nav><section class="hero" id="home"><div class="hero-text">
+<!-- HERO -->
 
-    <h1>Every Story Deserves A Cinematic Vision.</h1>
+<section class="hero" id="home">
 
-    <p>
-        AI-powered filmmaking assistant helping creators with
-        shot planning, mood analysis, color grading,
-        camera movement recommendations, lighting guidance,
-        and visual storytelling.
+    <div class="hero-overlay">
+
+        <div class="hero-text">
+
+            <h1>Every Story Deserves A Cinematic Vision</h1>
+
+            <p>
+                CineGenie is an AI-powered cinematography assistant that transforms
+                raw story ideas into professional filmmaking guidance including
+                mood analysis, shot planning, lighting suggestions, camera movement,
+                color palettes, music direction, and director notes.
+            </p>
+
+            <a href="#workspace">
+                <button>Start Creating</button>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- WORKSPACE -->
+
+<section class="workspace" id="workspace">
+
+    <h2>🎥 CineGenie AI Workspace</h2>
+
+    <p class="workspace-subtitle">
+        Paste your story idea and let CineGenie generate a cinematic production plan.
     </p>
-
-    <button>Explore CineGenie</button>
-    <section class="workspace">
-
-    <h2>🎬 Story Analyzer</h2>
 
     <textarea
         id="storyInput"
-        placeholder="Paste your raw story here..."
+        placeholder="Example: A detective enters an abandoned warehouse at midnight searching for a missing witness..."
     ></textarea>
 
     <button id="generateBtn">
         Generate Cinematic Vision
     </button>
 
+    <div id="loading" style="display:none;">
+        ✨ CineGenie is analyzing your story...
+    </div>
+
     <div id="outputBox">
-        AI suggestions will appear here...
+
+        <div class="result-card">
+            <h3>🎭 Mood Analysis</h3>
+            <p id="mood">Waiting for input...</p>
+        </div>
+
+        <div class="result-card">
+            <h3>🎥 Camera Suggestions</h3>
+            <p id="camera">Waiting for input...</p>
+        </div>
+
+        <div class="result-card">
+            <h3>💡 Lighting Plan</h3>
+            <p id="lighting">Waiting for input...</p>
+        </div>
+
+        <div class="result-card">
+            <h3>🎨 Color Palette</h3>
+            <p id="color">Waiting for input...</p>
+        </div>
+
+        <div class="result-card">
+            <h3>🎵 Music Direction</h3>
+            <p id="music">Waiting for input...</p>
+        </div>
+
+        <div class="result-card">
+            <h3>🎬 Director Notes</h3>
+            <p id="notes">Waiting for input...</p>
+        </div>
+
+        <div class="result-card">
+            <h3>📋 AI Shot List</h3>
+            <p id="shotlist">Waiting for input...</p>
+        </div>
+
     </div>
 
 </section>
 
+<!-- FEATURES -->
 
+<section class="features" id="features">
 
-<section class="features" id="feature"><h2>✨ AI Capabilities</h2><div class="cards"><div class="card">
-<h3>🎥 Shot Planning</h3>
-<p>Create professional cinematic sequences instantly.</p>
-</div><div class="card">
-<h3>🎨 Color Grading</h3>
-<p>Generate aesthetic color palettes for every scene.</p>
-</div><div class="card">
-<h3>💡 Lighting Design</h3>
-<p>AI recommendations for lighting setups and mood.</p>
-</div><div class="card">
-<h3>🎬 Camera Movement</h3>
-<p>Discover dynamic camera techniques for storytelling.</p>
-</div><div class="card">
-<h3>🧠 Mood Detection</h3>
-<p>Analyze emotional tone and scene atmosphere.</p>
-</div><div class="card">
-<h3>🎵 Music Suggestions</h3>
-<p>Find soundtrack vibes matching your story.</p>
-</div></div></section><section class="vision" id="vision"><h2>🚀 Future Vision</h2><p>
+    <h2>✨ AI Capabilities</h2>
 
+    <div class="cards">
 
-    
-CineGenie aims to become a complete AI filmmaking co-pilot,
-capable of generating storyboards, shot lists,
-visual references, soundtrack ideas,
-and creative direction assistance.
-</p></section>
-    
+        <div class="card">
+            <h3>🎥 Shot Planning</h3>
+            <p>Create cinematic shot sequences instantly.</p>
+        </div>
 
-  <section class="founder" id="founder">
+        <div class="card">
+            <h3>🎨 Color Grading</h3>
+            <p>Generate visual color palettes matching scene emotion.</p>
+        </div>
+
+        <div class="card">
+            <h3>💡 Lighting Design</h3>
+            <p>Receive AI-powered lighting recommendations.</p>
+        </div>
+
+        <div class="card">
+            <h3>🎬 Camera Movement</h3>
+            <p>Discover dynamic camera techniques for storytelling.</p>
+        </div>
+
+        <div class="card">
+            <h3>🧠 Mood Detection</h3>
+            <p>Understand emotional tone and atmosphere.</p>
+        </div>
+
+        <div class="card">
+            <h3>🎵 Music Direction</h3>
+            <p>Generate soundtrack suggestions based on scene mood.</p>
+        </div>
+
+        <div class="card">
+            <h3>📋 Shot List Generation</h3>
+            <p>Create production-ready shot breakdowns.</p>
+        </div>
+
+        <div class="card">
+            <h3>🤖 AI Director Assistant</h3>
+            <p>Get professional filmmaking guidance instantly.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- VISION -->
+
+<section class="vision" id="vision">
+
+    <h2>🚀 Future Vision</h2>
+
+    <p>
+        CineGenie aims to become a complete AI filmmaking co-pilot capable of
+        generating storyboards, shot lists, production notes, visual references,
+        soundtrack ideas, editing suggestions, and creative direction support.
+    </p>
+
+</section>
+
+<!-- FOUNDER -->
+
+<section class="founder" id="founder">
 
     <h2>✨ Meet The Founder</h2>
 
     <div class="founder-card">
 
-        <h3>Shreya aka Alice</h3>
+        <h3>Shreya (Alice)</h3>
 
         <p class="founder-title">
-            Dreamer • Creator • Explorer
+            Dreamer • Creator • Builder
         </p>
 
         <p>
-            Passionate about storytelling, visual creativity, and the art of filmmaking.
-            Bringing cinematic visions to life through technology and imagination.
+            CineGenie was inspired by my fascination with visual storytelling,
+            cinematography, and the creative process behind filmmaking.
         </p>
 
         <p>
-            During the COVID years, while many people were creating content and following
-            online trends, I started making videos with my mother and sister just for fun.
-            At that time, I knew almost nothing about professional editing software.
-            Curious to improve my videos, I spent hours searching, learning, and
-            experimenting until I discovered a simple free editing app. What began as
-            a small experiment slowly grew into a lasting creative hobby.
+            During the COVID years, I began experimenting with video creation
+            alongside my family. What started as a simple hobby gradually became
+            a deeper interest in editing, storytelling, cinematic visuals,
+            camera techniques, and creative direction.
         </p>
 
         <p>
-            As I kept researching, editing, and experimenting with videos, I found myself
-            diving deeper into the world of filmmaking. Watching countless short films,
-            cinematic sequences, and visual storytelling breakdowns sparked something
-            unexpected in me. I became fascinated by cinematography—the way lighting,
-            colors, camera movement, framing, and emotion can transform simple ideas
-            into unforgettable experiences.
+            While exploring countless short films, breakdown videos, and visual
+            storytelling techniques, I realized how challenging filmmaking can be
+            for beginners. CineGenie was imagined as a creative AI companion that
+            helps storytellers transform ideas into cinematic experiences.
         </p>
 
         <p>
-            That growing curiosity eventually inspired the idea behind CineGenie:
-            a platform imagined for creators who want guidance, inspiration, and
-            cinematic direction while bringing their stories to life. It represents
-            my admiration for the creative process and the dream of making filmmaking
-            tools more accessible for everyone.
+            This project combines my curiosity for technology with my admiration
+            for filmmaking, proving that creativity and innovation can work
+            together to empower creators.
         </p>
 
-        <p>
-             The thought that a person can imagine a visual world so beautifully and then bring it to life on screen
-            continues to inspire me. Every masterpiece begins with an idea, and every
-            great story deserves a cinematic vision.
-        </p>
-
-        <p>
-            I don't know if life will ever give me the opportunity to fully pursue
-            cinematography and filmmaking as an art, but if that chance ever comes,
-            I would embrace it wholeheartedly and explore it with everything I have.
-        </p>
-        <p> Life is like series of rat races. Like many others, I find myself moving from one rat race to another. 
-            It began with JEE, spending 3 years immersed in Physics, Chemistry and Maths. One chapter has come to an end and another has begun
-            with programming and technology. But beyond careers, exams and achievements, I believe its important to keep searching
-            for the passions that truly move us. Sometimes a single unexpected interest can bring more meaning, joy and most important "peace"
-            within us than any destination we planned for.🐭
-
-
-            
-        </p>
-
-
-
-
-        
     </div>
 
-</section>  
-    
-    <footer>Made with 💛 by Shreya
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        Made with 💛 by Shreya | CineGenie AI Cinematography Assistant
+    </p>
 
 </footer>
-    <script src="script.js"></script>
 
+<script src="script.js"></script>
 
 </body>
 </html>

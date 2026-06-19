@@ -1,115 +1,152 @@
-const btn = document.getElementById("generateBtn");
-const storyInput = document.getElementById("storyInput");
-const outputBox = document.getElementById("outputBox");
+const API_KEY = "PASTE_YOUR_GEMINI_API_KEY_HERE";
 
-btn.addEventListener("click", () => {
+const generateBtn = document.getElementById("generateBtn");
 
-    const story = storyInput.value.trim().toLowerCase();
+generateBtn.addEventListener("click", generateCinematicVision);
 
-    if (!story) {
-        outputBox.innerHTML = `
-        <h2>⚠️ No Story Found</h2>
-        <p>Please enter your story idea first.</p>
-        `;
-        return;
-    }
+async function generateCinematicVision() {
 
-    outputBox.innerHTML = `
-    <h2>🎬 CineGenie is imagining your film...</h2>
-    <p>Please wait...</p>
-    `;
+```
+const story =
+    document.getElementById("storyInput").value.trim();
 
-    setTimeout(() => {
+if (!story) {
+    alert("Please enter a story first.");
+    return;
+}
 
-        let genre = "Drama";
-        let mood = "Emotional";
-        let colorPalette = "Warm Orange, Gold and Beige";
-        let director = "Greta Gerwig";
-        let music = "Emotional orchestral soundtrack";
+document.getElementById("loading").style.display = "block";
 
-        if (
-            story.includes("space") ||
-            story.includes("planet") ||
-            story.includes("astronaut") ||
-            story.includes("future") ||
-            story.includes("alien")
-        ) {
-            genre = "Science Fiction";
-            mood = "Mysterious and Awe-Inspiring";
-            colorPalette = "Deep Blue, Purple and Black";
-            director = "Christopher Nolan";
-            music = "Hans Zimmer inspired atmospheric score";
+resetOutput();
+
+try {
+
+    const prompt = `
+```
+
+You are CineGenie AI, an expert cinematography and filmmaking assistant.
+
+Analyze the story below and return ONLY valid JSON.
+
+Use this exact structure:
+
+{
+"mood": "",
+"camera": "",
+"lighting": "",
+"color": "",
+"music": "",
+"notes": "",
+"shotlist": ""
+}
+
+Story:
+${story}
+
+Instructions:
+
+* Give practical filmmaking advice.
+* Be concise but useful.
+* Shotlist should contain 5 cinematic shots.
+* Director notes should feel professional.
+  `;
+
+  ````
+    const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [
+                            {
+                                text: prompt
+                            }
+                        ]
+                    }
+                ]
+            })
         }
+    );
 
-        if (
-            story.includes("ghost") ||
-            story.includes("haunted") ||
-            story.includes("monster") ||
-            story.includes("spirit") ||
-            story.includes("horror")
-        ) {
-            genre = "Horror";
-            mood = "Dark and Tense";
-            colorPalette = "Dark Green, Black and Grey";
-            director = "James Wan";
-            music = "Suspenseful horror soundtrack";
-        }
+    const data = await response.json();
 
-        if (
-            story.includes("love") ||
-            story.includes("romance") ||
-            story.includes("heart")
-        ) {
-            genre = "Romance";
-            mood = "Warm and Hopeful";
-            colorPalette = "Pink, Golden and White";
-            director = "Richard Linklater";
-            music = "Soft piano soundtrack";
-        }
+    const rawText =
+        data.candidates[0].content.parts[0].text;
 
-        outputBox.innerHTML = `
-        <div class="cine-result">
+    const cleanedText = rawText
+        .replace(/```json/g, "")
+        .replace(/```/g, "")
+        .trim();
 
-            <h2>🎬 CineGenie Vision</h2>
+    const result = JSON.parse(cleanedText);
 
-            <p>
-            Based on your story idea, CineGenie imagines this as a
-            <strong>${genre}</strong> film experience.
-            </p>
+    document.getElementById("mood").textContent =
+        result.mood;
 
-            <h3>🎭 Mood</h3>
-            <p>${mood}</p>
+    document.getElementById("camera").textContent =
+        result.camera;
 
-            <h3>🎨 Visual Style</h3>
-            <p>${colorPalette}</p>
+    document.getElementById("lighting").textContent =
+        result.lighting;
 
-            <h3>🎥 Director Inspiration</h3>
-            <p>${director}</p>
+    document.getElementById("color").textContent =
+        result.color;
 
-            <h3>🎼 Music Direction</h3>
-            <p>${music}</p>
+    document.getElementById("music").textContent =
+        result.music;
 
-            <h3>📖 Opening Scene</h3>
-            <p>
-            The film opens with a visually striking sequence that immediately
-            draws the audience into the world of the story.
-            </p>
+    document.getElementById("notes").textContent =
+        result.notes;
 
-            <h3>🎞️ Cinematography Suggestions</h3>
-            <p>
-            Use wide establishing shots, cinematic close-ups, dramatic
-            lighting and slow camera movement to enhance immersion.
-            </p>
+    document.getElementById("shotlist").textContent =
+        result.shotlist;
+  ````
 
-            <h3>⭐ CineGenie Verdict</h3>
-            <p>
-            This concept has strong cinematic potential and could develop
-            into a visually engaging film narrative.
-            </p>
+  }
 
-        </div>
-        `;
+  catch(error) {
 
-    }, 1500);
+  ```
+    console.error(error);
 
-});
+    document.getElementById("notes").textContent =
+        "Something went wrong while contacting Gemini.";
+  ```
+
+  }
+
+  document.getElementById("loading").style.display =
+  "none";
+  }
+
+function resetOutput() {
+
+```
+document.getElementById("mood").textContent =
+    "Analyzing...";
+
+document.getElementById("camera").textContent =
+    "Analyzing...";
+
+document.getElementById("lighting").textContent =
+    "Analyzing...";
+
+document.getElementById("color").textContent =
+    "Analyzing...";
+
+document.getElementById("music").textContent =
+    "Analyzing...";
+
+document.getElementById("notes").textContent =
+    "Analyzing...";
+
+document.getElementById("shotlist").textContent =
+    "Analyzing...";
+```
+
+}

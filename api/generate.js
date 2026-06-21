@@ -8,17 +8,47 @@ export default async function handler(req, res) {
   try {
     const { story } = req.body;
 
+    if (!story || story.trim() === "") {
+      return res.status(400).json({
+        result: "Please enter a story."
+      });
+    }
+
     const prompt = `
-You are CineGenie, an AI filmmaking assistant.
+You are CineGenie, an advanced AI Filmmaking Agent.
 
-Analyze this story and provide:
+Your task is to analyze the story and generate a professional filmmaking blueprint.
 
-1. Mood Analysis
-2. Camera Suggestions
-3. Lighting Plan
-4. Color Palette
-5. Music Direction
-6. Director Notes
+Provide the response in the following format:
+
+🎭 MOOD ANALYSIS
+- Main emotional tone
+- Audience feeling
+
+🎬 CINEMATOGRAPHY
+- Shot types
+- Camera movements
+- Lens suggestions
+
+💡 LIGHTING PLAN
+- Lighting style
+- Practical lights
+- Mood lighting
+
+🎨 COLOR PALETTE
+- Main colors
+- Color psychology
+
+🎵 MUSIC DIRECTION
+- Soundtrack style
+- Instruments
+- Atmosphere
+
+📋 SHOT LIST
+Give 5 cinematic shots.
+
+🎥 DIRECTOR'S NOTES
+Creative filmmaking advice.
 
 Story:
 ${story}
@@ -47,19 +77,21 @@ ${story}
 
     const data = await response.json();
 
+    console.log(data);
+
     const result =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response received.";
+      "CineGenie could not generate a response.";
 
-    res.status(200).json({
+    return res.status(200).json({
       result
     });
 
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({
-      result: "Server error."
+    return res.status(500).json({
+      result: "Server Error. Please try again."
     });
   }
 }

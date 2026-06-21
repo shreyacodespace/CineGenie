@@ -75,14 +75,19 @@ ${story}
       }
     );
 
-    const data = await response.json();
+const data = await response.json();
 
-    console.log(data);
+console.log("Gemini Response:", JSON.stringify(data, null, 2));
 
-    const result =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "CineGenie could not generate a response.";
+if (!response.ok) {
+  return res.status(500).json({
+    result: `Gemini Error: ${JSON.stringify(data)}`
+  });
+}
 
+const result =
+  data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+  JSON.stringify(data);
     return res.status(200).json({
       result
     });

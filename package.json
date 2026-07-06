@@ -1,0 +1,13 @@
+{
+  "name": "cinegenie",
+  "version": "1.0.0",
+  "description": "Multi-Agent AI Filmmaking Copilot",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@google/genai": "^1.10.0"
+  }
+}

@@ -2,6 +2,17 @@ const generateBtn = document.getElementById("generateBtn");
 const storyInput = document.getElementById("storyInput");
 const outputBox = document.getElementById("outputBox");
 
+// Loading animation steps
+const loadingSteps = [
+  "🎬 Director is reading the script...",
+  "📷 Cinematographer planning the shots...",
+  "💡 Lighting Designer setting the mood...",
+  "🎨 Colorist creating the palette...",
+  "🎵 Composer writing the soundtrack..."
+];
+
+let loadingInterval;
+
 generateBtn.addEventListener("click", async () => {
   const story = storyInput.value.trim();
 
@@ -10,7 +21,14 @@ generateBtn.addEventListener("click", async () => {
     return;
   }
 
-  outputBox.innerHTML = "🎬 Analyzing story with CineGenie...";
+  let step = 0;
+
+  outputBox.innerHTML = loadingSteps[0];
+
+  loadingInterval = setInterval(() => {
+    step = (step + 1) % loadingSteps.length;
+    outputBox.innerHTML = loadingSteps[step];
+  }, 1400);
 
   try {
     const response = await fetch("/api/generate", {
@@ -25,14 +43,21 @@ generateBtn.addEventListener("click", async () => {
 
     const data = await response.json();
 
+    clearInterval(loadingInterval);
+
     outputBox.innerHTML = `
 <pre style="white-space: pre-wrap; font-family: inherit;">
 ${data.result}
 </pre>
 `;
+
   } catch (error) {
+
+    clearInterval(loadingInterval);
+
     outputBox.innerHTML =
-      "❌ Error connecting to Gemini API.";
+      "❌ Unable to connect to CineGenie AI.";
+
     console.error(error);
   }
 });

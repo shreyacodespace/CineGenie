@@ -1,207 +1,143 @@
 const generateBtn = document.getElementById("generateBtn");
 const surpriseBtn = document.getElementById("surpriseBtn");
 const storyInput = document.getElementById("storyInput");
+const outputBox = document.getElementById("outputBox");
 
 const copyBtn = document.getElementById("copyBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 
-const loadingPanel = document.getElementById("loading");
+// Loading animation steps
+const loadingSteps = [
+  "🎬 Director is reading the script...",
+  "📷 Cinematographer planning the shots...",
+  "💡 Lighting Designer setting the mood...",
+  "🎨 Colorist creating the palette...",
+  "🎵 Composer writing the soundtrack..."
+];
 
-// OUTPUT FIELDS
-const mood = document.getElementById("mood");
-const camera = document.getElementById("camera");
-const lighting = document.getElementById("lighting");
-const color = document.getElementById("color");
-const music = document.getElementById("music");
-const notes = document.getElementById("notes");
-const shotlist = document.getElementById("shotlist");
+let loadingInterval;
 
-/* =========================
-   MCP CONFIG (OPTIONAL)
-========================= */
-const MCP_API_URL = "https://your-mcp-server.com/cinegenie";
+// Generate AI Analysis
+generateBtn.addEventListener("click", async () => {
 
-/* =========================
-   SHOW / HIDE AGENTS
-========================= */
-function showAgents() {
-    loadingPanel.style.display = "block";
+  const story = storyInput.value.trim();
 
-    const agents = [
-        document.getElementById("agent1"),
-        document.getElementById("agent2"),
-        document.getElementById("agent3"),
-        document.getElementById("agent4"),
-        document.getElementById("agent5"),
-    ];
+  if (!story) {
+    outputBox.innerHTML = "⚠️ Please enter a story first.";
+    return;
+  }
 
-    agents.forEach((agent, i) => {
-        agent.style.opacity = "0.3";
-        setTimeout(() => {
-            agent.style.opacity = "1";
-        }, i * 400);
+  let step = 0;
+
+  outputBox.innerHTML = loadingSteps[0];
+
+  loadingInterval = setInterval(() => {
+    step = (step + 1) % loadingSteps.length;
+    outputBox.innerHTML = loadingSteps[step];
+  }, 1400);
+
+  try {
+
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        story
+      })
     });
-}
 
-function hideAgents() {
-    loadingPanel.style.display = "none";
-}
+    const data = await response.json();
 
-/* =========================
-   MCP CALL
-========================= */
-async function callMCP(prompt) {
-    try {
-        const res = await fetch(MCP_API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ input: prompt })
-        });
+    clearInterval(loadingInterval);
 
-        if (!res.ok) throw new Error("MCP failed");
+    outputBox.innerHTML = `
+<pre style="white-space: pre-wrap; font-family: inherit;">
+${data.result}
+</pre>
+`;
 
-        const data = await res.json();
+  } catch (error) {
 
-        return data; // expected structured response
+    clearInterval(loadingInterval);
 
-    } catch (err) {
-        console.warn("MCP fallback:", err);
-        return null;
-    }
-}
+    outputBox.innerHTML =
+      "❌ Unable to connect to CineGenie AI.";
 
-/* =========================
-   LOCAL FALLBACK ENGINE
-========================= */
-function generateCineGenie(prompt) {
-    if (!prompt.trim()) prompt = "an unknown cinematic scene";
+    console.error(error);
 
-    return {
-        mood: `The scene feels intense and atmospheric based on "${prompt}".`,
-        camera: `Use slow tracking shots, wide establishing angles, and close-up emotional cuts.`,
-        lighting: `Low-key lighting with strong shadows and selective highlights.`,
-        color: `Muted blues, desaturated greys with warm orange highlights.`,
-        music: `Deep ambient tones with slow orchestral build-up.`,
-        notes: `Focus on emotional storytelling and visual tension.`,
-        shotlist: `1. Wide establishing shot\n2. Close-up character reveal\n3. Tracking movement shot\n4. Over-the-shoulder dialogue\n5. Final cinematic fade-out`
-    };
-}
+  }
 
-/* =========================
-   RENDER OUTPUT
-========================= */
-function render(data) {
-    mood.textContent = data.mood;
-    camera.textContent = data.camera;
-    lighting.textContent = data.lighting;
-    color.textContent = data.color;
-    music.textContent = data.music;
-    notes.textContent = data.notes;
-    shotlist.textContent = data.shotlist;
-}
-
-/* =========================
-   MAIN GENERATE
-========================= */
-async function generate(prompt) {
-    showAgents();
-
-    // simulate agent timing
-    setTimeout(async () => {
-
-        let result = await callMCP(prompt);
-
-        if (!result) {
-            result = generateCineGenie(prompt);
-        }
-
-        render(result);
-        hideAgents();
-
-    }, 2000);
-}
-
-/* =========================
-   EVENTS
-========================= */
-
-// Normal generate
-generateBtn.addEventListener("click", () => {
-    generate(storyInput.value);
 });
 
-// Surprise button
-surpriseBtn.addEventListener("click", () => {
-    const ideas = [
-        "a detective entering an abandoned hospital",
-        "a robot falling in love with a human",
-        "a soldier lost in a futuristic desert war",
-        "a girl discovering a portal in her mirror",
-        "a city where time stops every midnight"
-    ];
+// Copy Analysis
+copyBtn.addEventListener("click", async () => {
 
-    const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
-    storyInput.value = randomIdea;
+  const text = outputBox.innerText;
 
-    generate(randomIdea);
+  await navigator.clipboard.writeText(text);
+
+  copyBtn.innerText = "✅ Copied!";
+
+  setTimeout(() => {
+    copyBtn.innerText = "📋 Copy Analysis";
+  }, 2000);
+
 });
 
-/* =========================
-   COPY ALL OUTPUT
-========================= */
-copyBtn.addEventListener("click", () => {
-    const text =
-`MOOD: ${mood.textContent}
-
-CAMERA: ${camera.textContent}
-
-LIGHTING: ${lighting.textContent}
-
-COLOR: ${color.textContent}
-
-MUSIC: ${music.textContent}
-
-NOTES: ${notes.textContent}
-
-SHOTLIST:
-${shotlist.textContent}`;
-
-    navigator.clipboard.writeText(text)
-        .then(() => alert("Analysis copied!"))
-        .catch(() => alert("Copy failed!"));
-});
-
-/* =========================
-   DOWNLOAD FILE
-========================= */
+// Download Analysis
 downloadBtn.addEventListener("click", () => {
-    const text =
-`CINEGENIE AI ANALYSIS
 
-MOOD: ${mood.textContent}
+  const text = outputBox.innerText;
 
-CAMERA: ${camera.textContent}
+  const blob = new Blob([text], {
+    type: "text/plain"
+  });
 
-LIGHTING: ${lighting.textContent}
+  const link = document.createElement("a");
 
-COLOR: ${color.textContent}
+  link.href = URL.createObjectURL(blob);
 
-MUSIC: ${music.textContent}
+  link.download = "CineGenie_Analysis.txt";
 
-DIRECTOR NOTES: ${notes.textContent}
+  link.click();
 
-SHOT LIST:
-${shotlist.textContent}`;
+});
 
-    const blob = new Blob([text], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+// Random Film Concepts
+const filmConcepts = [
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "cinegenie-analysis.txt";
-    document.body.appendChild(a);
-    a.click();
+"A retired lighthouse keeper receives letters from his daughter who disappeared twenty years ago, each one arriving on the anniversary of the storm that took her away.",
 
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+"An ambitious violinist discovers that every melody she performs briefly reveals moments from the future.",
+
+"A lonely train conductor finds a forgotten suitcase that changes owners every midnight, carrying secrets from different lives.",
+
+"Two childhood friends reunite at their abandoned school before it is demolished, uncovering memories neither of them remembers the same way.",
+
+"A young photographer notices that every sunset she captures contains the silhouette of a mysterious stranger watching from afar.",
+
+"During a city-wide blackout, strangers trapped in a library share stories that slowly reveal they are all connected by one forgotten event.",
+
+"A young astronaut wakes up alone on Mars to discover someone has already built a small wooden cabin waiting for her.",
+
+"A forgotten movie theatre begins showing films that reveal scenes from the audience's future.",
+
+"A detective investigates a town where every clock stops at exactly 7:17 PM every evening.",
+
+"A grandmother leaves behind a recipe book whose pages reveal memories instead of ingredients."
+
+];
+
+// Surprise Button
+surpriseBtn.addEventListener("click", () => {
+
+  const random =
+    filmConcepts[Math.floor(Math.random() * filmConcepts.length)];
+
+  storyInput.value = random;
+
+  storyInput.focus();
+
 });

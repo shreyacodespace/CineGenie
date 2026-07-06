@@ -88,38 +88,43 @@ Key Features
 - ✨ Creative Visual Storytelling
 
 ---
+# System Architecture
 
-System Architecture
 
-                    User
-                      │
-                      ▼
-              Web Interface (Frontend)
-                      │
-                      ▼
-             Coordinator Agent
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
- Scene Agent   Director Agent   Story Agent
-        │             │             │
-        └─────────────┼─────────────┘
-                      ▼
-               Camera Agent
-                      │
-                      ▼
-                MCP Tool Layer
-        ┌──────────┬───────────┬──────────┐
-        ▼          ▼           ▼
-   Video Tool  Scene Tool  Retrieval Tool
-                      │
-                      ▼
-              LLM Inference Layer
-                      │
-                      ▼
-            Cinematic AI Response
+                           User
+                             │
+                             ▼
+                  Web Interface (Frontend)
+                             │
+                             ▼
+                    Coordinator Agent
+                             │
+        ┌────────────────────┼────────────────────┐
+        │                    │                    │
+        ▼                    ▼                    ▼
+ Scene Analysis Agent   Director Agent     Story Agent
+        │                    │                    │
+        └────────────────────┼────────────────────┘
+                             │
+                             ▼
+                     Camera Agent
+                             │
+                             ▼
+                      MCP Tool Layer
+        ┌────────────────┬────────────────┬────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+   Video Tool       Scene Tool      Retrieval Tool
+                             │
+                             ▼
+                    LLM Inference Layer
+                             │
+                             ▼
+                 Cinematic AI Response
 
-«Architecture Diagram: "docs/architecture.png"»
+
+ **Architecture Diagram:** `docs/architecture.png`
+
 
 ---
 

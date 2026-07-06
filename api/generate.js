@@ -1,8 +1,7 @@
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
@@ -15,79 +14,83 @@ export default async function handler(req, res) {
     }
 
     const prompt = `
-You are CineGenie, an advanced AI Filmmaking Agent.
+You are CineGenie, a professional AI Filmmaking Copilot.
 
-Your task is to analyze the story and generate a professional filmmaking blueprint.
-
-Provide the response in the following format:
+Analyze the following story and provide:
 
 🎭 MOOD ANALYSIS
-- Main emotional tone
-- Audience feeling
+• Emotional Tone
+• Audience Feeling
 
 🎬 CINEMATOGRAPHY
-- Shot types
-- Camera movements
-- Lens suggestions
+• Shot Types
+• Camera Movement
+• Lens Suggestions
 
-💡 LIGHTING PLAN
-- Lighting style
-- Practical lights
-- Mood lighting
+💡 LIGHTING
+• Lighting Style
+• Practical Lights
+• Mood Lighting
 
 🎨 COLOR PALETTE
-- Main colors
-- Color psychology
+• Primary Colors
+• Color Psychology
 
-🎵 MUSIC DIRECTION
-- Soundtrack style
-- Instruments
-- Atmosphere
+🎵 MUSIC
+• Background Score
+• Instruments
+• Atmosphere
 
 📋 SHOT LIST
-Give 5 cinematic shots.
+Generate 5 cinematic shots.
 
-🎥 DIRECTOR'S NOTES
+🎥 DIRECTOR NOTES
 Creative filmmaking advice.
 
 Story:
+
 ${story}
 `;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.gemini_api_key}`,
+      "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
         },
         body: JSON.stringify({
-          contents: [
+          model: "llama-3.3-70b-versatile",
+          messages: [
             {
-              parts: [
-                {
-                  text: prompt
-                }
-              ]
+              role: "system",
+              content: "You are CineGenie, an expert filmmaking assistant."
+            },
+            {
+              role: "user",
+              content: prompt
             }
-          ]
+          ],
+          temperature: 0.8
         })
       }
     );
 
-const data = await response.json();
+    const data = await response.json();
 
-console.log("Gemini Response:", JSON.stringify(data, null, 2));
+    console.log("Groq Response:", data);
 
-if (!response.ok) {
-  return res.status(500).json({
-    result: `Gemini Error: ${JSON.stringify(data)}`
-  });
-}
+    if (!response.ok) {
+      return res.status(500).json({
+        result: `Groq Error: ${JSON.stringify(data)}`
+      });
+    }
 
-const result =
-  data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-  JSON.stringify(data);
+    const result =
+      data?.choices?.[0]?.message?.content ||
+      "No response generated.";
+
     return res.status(200).json({
       result
     });

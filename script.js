@@ -2,6 +2,10 @@ const generateBtn = document.getElementById("generateBtn");
 const storyInput = document.getElementById("storyInput");
 const outputBox = document.getElementById("outputBox");
 
+const copyBtn = document.getElementById("copyBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+
+
 // Loading animation steps
 const loadingSteps = [
   "🎬 Director is reading the script...",
@@ -60,4 +64,36 @@ ${data.result}
 
     console.error(error);
   }
+  copyBtn.addEventListener("click", async () => {
+
+const text = outputBox.innerText;
+
+await navigator.clipboard.writeText(text);
+
+copyBtn.innerText = "✅ Copied!";
+
+setTimeout(() => {
+copyBtn.innerText = "📋 Copy Analysis";
+},2000);
+
+});
+
+
+downloadBtn.addEventListener("click",()=>{
+
+const text = outputBox.innerText;
+
+const blob = new Blob([text],{
+type:"text/plain"
+});
+
+const link=document.createElement("a");
+
+link.href=URL.createObjectURL(blob);
+
+link.download="CineGenie_Analysis.txt";
+
+link.click();
+
+});
 });

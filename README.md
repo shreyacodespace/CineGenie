@@ -1,4 +1,4 @@
-🎬 ##CineGenie: Multi-Agent AI Filmmaking Assistant
+🎬 CineGenie: Multi-Agent AI Filmmaking Assistant
 
 An AI-powered multi-agent filmmaking copilot that transforms scripts and creative ideas into cinematic insights through intelligent scene analysis, directing assistance, cinematography guidance, and storytelling support.
 

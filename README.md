@@ -1,6 +1,15 @@
 🎬 CineGenie: Multi-Agent AI Filmmaking Assistant
 
-«An AI-powered multi-agent filmmaking copilot that transforms scripts and creative ideas into cinematic insights through intelligent scene analysis, directing assistance, cinematography guidance, and storytelling support.»
+An AI-powered multi-agent filmmaking copilot that transforms scripts and creative ideas into cinematic insights through intelligent scene analysis, directing assistance, cinematography guidance, and storytelling support.
+
+
+## About the Project
+
+Hi! I'm an 18-year-old student who recently completed high school and will be starting college in the coming months.
+
+I've always been fascinated by filmmaking, cinematography, storytelling, and visual direction. That curiosity inspired me to build **CineGenie** as a way to explore how AI agents can assist creators throughout the filmmaking process.
+
+While this project is not intended to replace professional filmmaking expertise, it represents my attempt to combine my passion for cinema with modern AI technologies. I see CineGenie as both a learning journey and a step toward making creative filmmaking guidance more accessible to students, independent creators, and aspiring filmmakers.
 
 ---
 

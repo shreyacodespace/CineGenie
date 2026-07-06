@@ -90,7 +90,7 @@ Key Features
 ---
 # System Architecture
 
-
+```text
                            User
                              │
                              ▼
@@ -121,9 +121,9 @@ Key Features
                              │
                              ▼
                  Cinematic AI Response
+```
 
-
- **Architecture Diagram:** `docs/architecture.png`
+> **Architecture Diagram:** `docs/architecture.png`
 
 
 ---

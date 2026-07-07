@@ -28,7 +28,7 @@ generateBtn.addEventListener("click", async () => {
   }
 
   let step = 0;
-
+clearInterval(loadingInterval);
   outputBox.innerHTML = loadingSteps[0];
 
   loadingInterval = setInterval(() => {
@@ -51,6 +51,7 @@ generateBtn.addEventListener("click", async () => {
     const data = await response.json();
 
     clearInterval(loadingInterval);
+    loadingInterval = null;
 
     outputBox.innerHTML = `
 <pre style="white-space: pre-wrap; font-family: inherit;">
@@ -61,6 +62,7 @@ ${data.result}
   } catch (error) {
 
     clearInterval(loadingInterval);
+    loadingInterval = null;
 
     outputBox.innerHTML =
       "❌ Unable to connect to CineGenie AI.";
